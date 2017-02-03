@@ -2,18 +2,18 @@ apply plugin: 'com.android.library'
 
 ext {
     bintrayRepo = 'maven'
-    bintrayName = 'easy-cache'
+    bintrayName = 'tiny'
 
-    publishedGroupId = 'com.rakangsoftware.easycache'
-    libraryName = 'easy-cache'
-    artifact = 'easycache'
+    publishedGroupId = 'com.rakangsoftware.tiny'
+    libraryName = 'tiny'
+    artifact = 'tiny'
 
-    libraryDescription = 'An easy to use cache for android.'
+    libraryDescription = 'A tiny network lib build on top of OkHttp.'
 
-    siteUrl = 'https://github.com/pererikbergman/android-easy-cache'
-    gitUrl = 'https://github.com/pererikbergman/android-easy-cache.git'
+    siteUrl = 'https://github.com/pererikbergman/android-tiny'
+    gitUrl = 'https://github.com/pererikbergman/android-tiny.git'
 
-    libraryVersion = '0.0.1'
+    libraryVersion = '0.0.3'
 
     developerId = 'pererikbergman'
     developerName = 'Per-Erik Bergman'

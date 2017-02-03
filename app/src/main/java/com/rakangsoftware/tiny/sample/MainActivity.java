@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.rakangsoftware.tiny.TinyResult;
 import com.rakangsoftware.tiny.Tiny;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
                 .addQueryParameter("api_key", "585570452763830e4c6149")
                 .addHeader("access-token", "asda322rsdfgdffq3")
                 .get(
-                        new Tiny.Result<User>() {
+                        new TinyResult<User>() {
                             @Override
                             public void onSuccess(final User result) {
                                 mResult.setText(result.toString());
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 .setBody(new Object())
                 .setRoute("/posts")
                 .post(
-                        new Tiny.Result<Id>() {
+                        new TinyResult<Id>() {
                             @Override
                             public void onSuccess(final Id result) {
                                 mResult.setText(result.toString());
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 .addHeader("access-token", "asda322rsdfgdffq3")
                 .setBody(new User())
                 .put(
-                        new Tiny.Result<User>() {
+                        new TinyResult<User>() {
                             @Override
                             public void onSuccess(final User result) {
                                 mResult.setText(result.toString());
@@ -85,16 +86,16 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void onPatch(View view) {
-        User body = new User();
-        body.setTitle("My special title");
+        User user = new User();
+        user.setTitle("My special title");
 
         Tiny.fetch(URL, User.class)
                 .setRoute("/posts/2")
                 .addQueryParameter("api_key", "585570452763830e4c6149")
                 .addHeader("access-token", "asda322rsdfgdffq3")
-                .setBody(body)
+                .setBody(user)
                 .patch(
-                        new Tiny.Result<User>() {
+                        new TinyResult<User>() {
                             @Override
                             public void onSuccess(final User result) {
                                 mResult.setText(result.toString());
@@ -109,14 +110,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onDelete(View view) {
-        User body = new User();
+        User user = new User();
         Tiny.fetch(URL, User.class)
                 .setRoute("/posts/2")
                 .addQueryParameter("api_key", "585570452763830e4c6149")
                 .addHeader("access-token", "asda322rsdfgdffq3")
-                .setBody(body)
+                .setBody(user)
                 .delete(
-                        new Tiny.Result<User>() {
+                        new TinyResult<User>() {
                             @Override
                             public void onSuccess(final User result) {
                                 mResult.setText(result.toString());
