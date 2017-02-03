@@ -1,5 +1,7 @@
 package com.rakangsoftware.tiny;
 
+import android.os.Handler;
+
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -118,7 +120,8 @@ public class Tiny {
         }
 
         private <K> void method(final Result<K> result, final String method, final Object body, final Class<K> type) {
-            String url = buildUrl(mUrl, mRoute, query);
+            final Handler handler = new Handler();
+            String        url     = buildUrl(mUrl, mRoute, query);
 
             RequestBody requestBody = null;
             if (body != null) {
@@ -140,7 +143,13 @@ public class Tiny {
                         @Override
                         public void onFailure(final Call call, final IOException e) {
                             e.printStackTrace();
-                            result.onFail(e);
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    result.onFail(e);
+                                }
+                            });
+
                         }
 
                         @Override
@@ -148,12 +157,22 @@ public class Tiny {
                             if (!response.isSuccessful()) {
                                 throw new IOException("Unexpected code " + response);
                             } else {
-                                result.onSuccess(
-                                        new Gson().fromJson(
-                                                response.body().string(),
-                                                type
-                                        )
-                                );
+                                handler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            result.onSuccess(
+                                                    new Gson().fromJson(
+                                                            response.body().string(),
+                                                            type
+                                                    )
+                                            );
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                });
+
                             }
                         }
                     }

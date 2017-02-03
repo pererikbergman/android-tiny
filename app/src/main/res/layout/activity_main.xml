@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/activity_main"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/get"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onGet"
+        android:text="GET"/>
+
+    <Button
+        android:id="@+id/post"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onPost"
+        android:text="POST"/>
+
+    <Button
+        android:id="@+id/put"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onPut"
+        android:text="PUT"/>
+
+    <Button
+        android:id="@+id/patch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onPatch"
+        android:text="PATCH"/>
+
+    <Button
+        android:id="@+id/delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onDelete"
+        android:text="DELETE"/>
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#11000000"/>
+
+</LinearLayout>
