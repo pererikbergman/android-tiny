@@ -1,4 +1,4 @@
- [ ![Download](https://api.bintray.com/packages/pererikbergman/maven/tiny/images/download.svg) ](https://bintray.com/pererikbergman/maven/tiny/_latestVersion)
+ [ ![Download](https://api.bintray.com/packages/pererikbergman/maven/tiny/images/download.svg) ](https://bintray.com/pererikbergman/maven/tiny/_latestVersion) ![Download](https://travis-ci.org/pererikbergman/android-tiny.svg?branch=master)
 
 # Tiny
 A tiny network lib build on top of OkHttp. This is mostly for my own use but feel free to use it and come with suggestions. It is far from a complete framework a lot of missing features that I will add as I need them. 
