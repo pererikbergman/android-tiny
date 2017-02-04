@@ -27,7 +27,7 @@ This code snippet is the simplest way of making one get call fetching one item.
 ``` java
 Tiny.fetch("https://jsonplaceholder.typicode.com/posts/1", Post.class).get(new TinyResult<Post>() {
     @Override
-    public void onSuccess(final Post result) {
+    public void onSuccess(final Post post) {
                 
     }
 
@@ -38,14 +38,13 @@ Tiny.fetch("https://jsonplaceholder.typicode.com/posts/1", Post.class).get(new T
 });
 ```
 
-### How to use
 This code snippet used a route.
 ``` java
- Tiny.fetch("https://jsonplaceholder.typicode.com", User.class)
+ Tiny.fetch("https://jsonplaceholder.typicode.com", Post.class)
         .setRoute("/posts/1")
         .get(new TinyResult<User>() {
             @Override
-            public void onSuccess(final User result) {
+            public void onSuccess(final Post post) {
          
             }
 
