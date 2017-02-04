@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onGet(View view) {
-        Tiny.fetch(Postgogi.class)
+        Tiny.fetch(Post.class)
                 .setRoute("/posts/1")
                 .addQueryParameter("api_key", "585570452763830e4c6149")
                 .addHeader("access-token", "asda322rsdfgdffq3")
