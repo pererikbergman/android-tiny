@@ -44,8 +44,9 @@ public class TinyRequestBuilder<K> {
     private       String   mRoute;
     private       Object   mBody;
 
-    private final Map<String, String> header = new HashMap<>();
-    private final Map<String, String> query  = new HashMap<>();
+    private final Map<String, String> header   = new HashMap<>();
+    private final Map<String, String> query    = new HashMap<>();
+    private final Map<String, String> template = new HashMap<>();
 
     TinyRequestBuilder(final OkHttpClient client, final String url, final Class<K> cls) {
         mClient = client;
@@ -60,6 +61,11 @@ public class TinyRequestBuilder<K> {
 
     public TinyRequestBuilder<K> addQueryParameter(String key, String value) {
         query.put(key, value);
+        return this;
+    }
+
+    public TinyRequestBuilder<K> setTemplateValue(String key, String value) {
+        template.put(key, value);
         return this;
     }
 
@@ -100,7 +106,8 @@ public class TinyRequestBuilder<K> {
 
     private void method(final TinyResult<K> result, final String method, final Object body, final Class<K> type) {
         final Handler handler = new Handler();
-        String        url     = buildUrl(mUrl, mRoute, query);
+        String        url     = buildUrl(mUrl, mRoute, query, template);
+        System.out.println("url = " + url);
 
         RequestBody requestBody = null;
         if (body != null) {
@@ -158,11 +165,23 @@ public class TinyRequestBuilder<K> {
         );
     }
 
-    private String buildUrl(final String url, final String route, final Map<String, String> query) {
-        HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
+    private String template(String str, Map<String, String> template) {
+        for (Map.Entry<String, String> entry : template.entrySet()) {
+            String key   = "{" + entry.getKey() + "}";
+            String value = entry.getValue();
+            str = str.replace(key, value);
+        }
+
+        return str;
+    }
+
+    private String buildUrl(final String url, final String route, final Map<String, String> query, final Map<String, String> template) {
+        String          fixedUrl   = template(url, template);
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(fixedUrl).newBuilder();
 
         if (route != null) {
-            String[] routes = route.split("/");
+            String   fixedRoute = template(route, template);
+            String[] routes     = fixedRoute.split("/");
             for (String routeSegment : routes) {
                 urlBuilder.addPathSegment(routeSegment);
             }
