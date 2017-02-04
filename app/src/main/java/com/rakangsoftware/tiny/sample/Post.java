@@ -16,7 +16,7 @@
 
 package com.rakangsoftware.tiny.sample;
 
-public class User {
+public class Post {
 
     private int    userId;
     private int    id;
@@ -27,7 +27,7 @@ public class User {
         return userId;
     }
 
-    public User setUserId(final int userId) {
+    public Post setUserId(final int userId) {
         this.userId = userId;
         return this;
     }
@@ -36,7 +36,7 @@ public class User {
         return id;
     }
 
-    public User setId(final int id) {
+    public Post setId(final int id) {
         this.id = id;
         return this;
     }
@@ -45,7 +45,7 @@ public class User {
         return title;
     }
 
-    public User setTitle(final String title) {
+    public Post setTitle(final String title) {
         this.title = title;
         return this;
     }
@@ -54,7 +54,7 @@ public class User {
         return body;
     }
 
-    public User setBody(final String body) {
+    public Post setBody(final String body) {
         this.body = body;
         return this;
     }
