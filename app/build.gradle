@@ -1,10 +1,16 @@
 apply plugin: 'com.android.application'
 
+repositories {
+    maven {
+        url 'https://dl.bintray.com/pererikbergman/maven/'
+    }
+}
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
-        applicationId "com.rakangsoftware.tiny"
+        applicationId "com.rakangsoftware.tiny.sample"
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
@@ -26,5 +32,7 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.1.0'
     testCompile 'junit:junit:4.12'
-    compile project(path: ':tiny')
+     compile project(path: ':tiny')
+//    compile 'com.rakangsoftware.tiny:tiny:0.0.1'
+
 }

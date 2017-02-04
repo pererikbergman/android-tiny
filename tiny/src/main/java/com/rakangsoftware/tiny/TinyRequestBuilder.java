@@ -19,7 +19,7 @@ import okhttp3.Response;
 
 public class TinyRequestBuilder<K> {
 
-    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+    private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
     private final OkHttpClient mClient;
 
@@ -82,7 +82,7 @@ public class TinyRequestBuilder<K> {
         return this;
     }
 
-    private <K> void method(final TinyResult<K> result, final String method, final Object body, final Class<K> type) {
+    private void method(final TinyResult<K> result, final String method, final Object body, final Class<K> type) {
         final Handler handler = new Handler();
         String        url     = buildUrl(mUrl, mRoute, query);
 

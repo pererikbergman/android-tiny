@@ -13,13 +13,13 @@ ext {
     siteUrl = 'https://github.com/pererikbergman/android-tiny'
     gitUrl = 'https://github.com/pererikbergman/android-tiny.git'
 
-    libraryVersion = '0.0.3'
+    libraryVersion = '0.0.1'
 
     developerId = 'pererikbergman'
     developerName = 'Per-Erik Bergman'
     developerEmail = 'bergman@uncle.se'
 
-    licenseName = 'The Apache Software License, Version 2.0'
+    licenseName = 'The Apac he Software License, Version 2.0'
     licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
     allLicenses = ["Apache-2.0"]
 }

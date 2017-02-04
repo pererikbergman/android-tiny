@@ -2,6 +2,7 @@ package com.rakangsoftware.tiny;
 
 import okhttp3.OkHttpClient;
 
+@SuppressWarnings("WeakerAccess")
 public class Tiny {
 
     private static Tiny sTiny;
@@ -12,11 +13,7 @@ public class Tiny {
         mClient = new OkHttpClient();
     }
 
-    private void setConfig() {
-
-    }
-
-    public OkHttpClient getClient() {
+    private OkHttpClient getClient() {
         return mClient;
     }
 
@@ -32,12 +29,8 @@ public class Tiny {
         return sTiny;
     }
 
-    public static void init() {
-        get().setConfig();
-    }
-
     public static <K> TinyRequestBuilder<K> fetch(String url, Class<K> cls) {
-        return new TinyRequestBuilder(get().getClient(), url, cls);
+        return new TinyRequestBuilder<>(get().getClient(), url, cls);
     }
 
 }
