@@ -21,11 +21,14 @@ import okhttp3.OkHttpClient;
 @SuppressWarnings("WeakerAccess")
 public class Tiny {
 
-    private static Tiny sTiny;
+    private static Tiny   sTiny;
+    private static Config sConfig;
 
     private final OkHttpClient mClient;
+    private final Config       mConfig;
 
-    private Tiny() {
+    private Tiny(final Config config) {
+        mConfig = config;
         mClient = new OkHttpClient();
     }
 
@@ -37,7 +40,7 @@ public class Tiny {
         if (sTiny == null) {
             synchronized (Tiny.class) {
                 if (sTiny == null) {
-                    sTiny = new Tiny();
+                    sTiny = new Tiny(sConfig);
                 }
             }
         }
@@ -45,8 +48,34 @@ public class Tiny {
         return sTiny;
     }
 
-    public static <K> TinyRequestBuilder<K> fetch(String url, Class<K> cls) {
-        return new TinyRequestBuilder<>(get().getClient(), url, cls);
+    public static void init(Config config) {
+        if (sTiny == null) {
+            sConfig = config;
+        }
     }
 
+    public static <K> TinyRequestBuilder<K> fetch(Class<K> cls) {
+        return fetch(get().mConfig.getBaseUrl(), cls);
+    }
+
+    public static <K> TinyRequestBuilder<K> fetch(String url, Class<K> cls) {
+        return new TinyRequestBuilder<>(
+                get().getClient(),
+                url,
+                cls
+        );
+    }
+
+    public static class Config {
+        private String mBaseUrl;
+
+        public String getBaseUrl() {
+            return mBaseUrl;
+        }
+
+        public Config setBaseUrl(final String baseUrl) {
+            mBaseUrl = baseUrl;
+            return this;
+        }
+    }
 }

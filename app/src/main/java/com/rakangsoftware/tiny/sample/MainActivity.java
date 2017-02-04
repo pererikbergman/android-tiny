@@ -23,8 +23,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.rakangsoftware.tiny.TinyResult;
 import com.rakangsoftware.tiny.Tiny;
+import com.rakangsoftware.tiny.TinyResult;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onGet(View view) {
-        Tiny.fetch(URL, User.class)
+        Tiny.fetch(User.class)
                 .setRoute("/posts/1")
                 .addQueryParameter("api_key", "585570452763830e4c6149")
                 .addHeader("access-token", "asda322rsdfgdffq3")
