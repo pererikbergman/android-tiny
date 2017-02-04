@@ -1,11 +1,10 @@
  [ ![Download](https://api.bintray.com/packages/pererikbergman/maven/tiny/images/download.svg) ](https://bintray.com/pererikbergman/maven/tiny/_latestVersion)
 
 # Tiny
-A tiny network lib build on top of OkHttp.
+A tiny network lib build on top of OkHttp. This is mostly for my own use but feel free to use it and come with suggestions. It is far from a complete framework a lot of missing features that I will add as I need them. 
 
 ## Project News 
- * Version 0.1.2 released, added test code and minor fixes.
- * Just released version 0.1.1.
+ * Version 0.0.3.
 
 ## Features
  * Supported methids: GET, POST, PUT, PATCH, DELETE
