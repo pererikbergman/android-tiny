@@ -17,7 +17,7 @@ Import into your gradle project:
  ``` java
 dependencies {
     ...
-    compile 'com.rakangsoftware.tiny:tiny:0.0.2'
+    compile 'com.rakangsoftware.tiny:tiny:0.0.3'
     ...
 }
 ```
