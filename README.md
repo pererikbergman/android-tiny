@@ -4,7 +4,7 @@
 A tiny network lib build on top of OkHttp. This is mostly for my own use but feel free to use it and come with suggestions. It is far from a complete framework a lot of missing features that I will add as I need them. 
 
 ## Project News 
- * Version 0.0.4.
+ * Version 0.0.5.
 
 ## Features
  * Supported methids: GET, POST, PUT, PATCH, DELETE
