@@ -23,8 +23,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.gson.reflect.TypeToken;
 import com.rakangsoftware.tiny.Tiny;
 import com.rakangsoftware.tiny.TinyResult;
+
+import java.lang.reflect.Type;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,6 +53,24 @@ public class MainActivity extends AppCompatActivity {
                         new TinyResult<Post>() {
                             @Override
                             public void onSuccess(final Post result) {
+                                mResult.setText(result.toString());
+                            }
+
+                            @Override
+                            public void onFail(final Throwable throwable) {
+                                Log.d(TAG, "onFail() called with: throwable = [" + throwable + "]");
+                            }
+                        }
+                );
+    }
+
+    public void onGetList(View view) {
+        Type postListType = new TypeToken<List<Post>>() {}.getType();
+        Tiny.fetch("https://jsonplaceholder.typicode.com/posts", postListType)
+                .get(
+                        new TinyResult<List<Post>>() {
+                            @Override
+                            public void onSuccess(final List<Post> result) {
                                 mResult.setText(result.toString());
                             }
 

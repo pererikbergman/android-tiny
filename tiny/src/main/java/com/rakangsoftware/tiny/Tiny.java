@@ -16,6 +16,8 @@
 
 package com.rakangsoftware.tiny;
 
+import java.lang.reflect.Type;
+
 import okhttp3.OkHttpClient;
 
 @SuppressWarnings("WeakerAccess")
@@ -54,15 +56,15 @@ public class Tiny {
         }
     }
 
-    public static <K> TinyRequestBuilder<K> fetch(Class<K> cls) {
-        return fetch(get().mConfig.getBaseUrl(), cls);
+    public static <K> TinyRequestBuilder fetch(Type type) {
+        return fetch(get().mConfig.getBaseUrl(), type);
     }
 
-    public static <K> TinyRequestBuilder<K> fetch(String url, Class<K> cls) {
-        return new TinyRequestBuilder<>(
+    public static <K> TinyRequestBuilder fetch(String url, Type type) {
+        return new TinyRequestBuilder(
                 get().getClient(),
                 url,
-                cls
+                type
         );
     }
 

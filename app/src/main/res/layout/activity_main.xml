@@ -20,6 +20,13 @@
         android:text="GET"/>
 
     <Button
+        android:id="@+id/get_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onGetList"
+        android:text="GET LIST"/>
+
+    <Button
         android:id="@+id/post"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
