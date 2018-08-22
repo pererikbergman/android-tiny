@@ -17,6 +17,7 @@
 package com.rakangsoftware.tiny;
 
 import android.os.Handler;
+import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
 
@@ -33,6 +34,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 public class TinyRequestBuilder {
 
@@ -41,19 +43,13 @@ public class TinyRequestBuilder {
     private final OkHttpClient mClient;
 
     private final String mUrl;
-    private final Type mTypeOfK;
-    private String mRoute;
-    private Object mBody;
+    private final Type   mTypeOfK;
+    private       String mRoute;
+    private       Object mBody;
 
-    private final Map<String, String> header = new HashMap<>();
-    private final Map<String, String> query = new HashMap<>();
+    private final Map<String, String> header   = new HashMap<>();
+    private final Map<String, String> query    = new HashMap<>();
     private final Map<String, String> template = new HashMap<>();
-
-    <K> TinyRequestBuilder(final OkHttpClient client, final String url, final Class<K> classOfK) {
-        mClient = client;
-        mUrl = url;
-        mTypeOfK = (Type) classOfK;
-    }
 
     TinyRequestBuilder(final OkHttpClient client, final String url, final Type typeOfK) {
         mClient = client;
@@ -108,7 +104,7 @@ public class TinyRequestBuilder {
 
     private <K> void method(final TinyResult<K> result, final String method, final Object body, final Type classOfT) {
         final Handler handler = new Handler();
-        String url = buildUrl(mUrl, mRoute, query, template);
+        String        url     = buildUrl(mUrl, mRoute, query, template);
         System.out.println("url = " + url);
 
         RequestBody requestBody = null;
@@ -129,7 +125,7 @@ public class TinyRequestBuilder {
         mClient.newCall(request).enqueue(
                 new Callback() {
                     @Override
-                    public void onFailure(final Call call, final IOException e) {
+                    public void onFailure(@NonNull final Call call, @NonNull final IOException e) {
                         e.printStackTrace();
                         handler.post(new Runnable() {
                             @Override
@@ -141,7 +137,7 @@ public class TinyRequestBuilder {
                     }
 
                     @Override
-                    public void onResponse(final Call call, final Response response) throws IOException {
+                    public void onResponse(@NonNull final Call call, @NonNull final Response response) throws IOException {
                         if (!response.isSuccessful()) {
                             throw new IOException("Unexpected code " + response);
                         } else {
@@ -149,12 +145,17 @@ public class TinyRequestBuilder {
                                 @Override
                                 public void run() {
                                     try {
-                                        result.onSuccess(
-                                                (K) new Gson().fromJson(
-                                                        response.body().string(),
-                                                        classOfT
-                                                )
-                                        );
+                                        ResponseBody responseBody = response.body();
+                                        if (responseBody != null) {
+                                            @SuppressWarnings("unchecked")
+                                            K result1 = (K) new Gson().fromJson(
+                                                    responseBody.string(),
+                                                    classOfT
+                                            );
+                                            result.onSuccess(
+                                                    result1
+                                            );
+                                        }
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }
@@ -169,7 +170,7 @@ public class TinyRequestBuilder {
 
     private String template(String str, Map<String, String> template) {
         for (Map.Entry<String, String> entry : template.entrySet()) {
-            String key = "{" + entry.getKey() + "}";
+            String key   = "{" + entry.getKey() + "}";
             String value = entry.getValue();
             str = str.replace(key, value);
         }
@@ -178,12 +179,16 @@ public class TinyRequestBuilder {
     }
 
     private String buildUrl(final String url, final String route, final Map<String, String> query, final Map<String, String> template) {
-        String fixedUrl = template(url, template);
-        HttpUrl.Builder urlBuilder = HttpUrl.parse(fixedUrl).newBuilder();
+        String  fixedUrl = template(url, template);
+        HttpUrl parse    = HttpUrl.parse(fixedUrl);
+        if (parse == null) {
+            return null;
+        }
+        HttpUrl.Builder urlBuilder = parse.newBuilder();
 
         if (route != null) {
-            String fixedRoute = template(route, template);
-            String[] routes = fixedRoute.split("/");
+            String   fixedRoute = template(route, template);
+            String[] routes     = fixedRoute.split("/");
             for (String routeSegment : routes) {
                 urlBuilder.addPathSegment(routeSegment);
             }
